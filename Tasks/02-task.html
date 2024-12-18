@@ -25,14 +25,13 @@
         }
 
         table {
-            margin: 10px;
-            border-collapse: collapse;
+            margin: 10px
         }
 
         table,
         th,
         td {
-            border: 1px solid black;
+            border: 1px solid rgb(151, 205, 255)
         }
 
         td,
@@ -43,7 +42,7 @@
 </head>
 
 <body>
-
+    
     <form name="productForm">
         <div class="form-group">
             <label for="name">Название</label>
@@ -56,63 +55,55 @@
         </div>
 
         <div class="form-group">
-            <label for="stock">Количество на складе</label>
-            <input type="text" id="stock" name="stock">
+            <label for="count">Кол-во</label>
+            <input type="text" id="count" name="count">
         </div>
 
         <div class="form-group">
-            <label for="currency">Валюта</label>
+            <label for="price">Валюта</label>
             <input type="radio" id="currency" name="currency" value="USD" checked> USD
             <input type="radio" id="currency" name="currency" value="EUR"> EUR
         </div>
+
         <br>
         <input id="saveButton" type="button" value="Сохранить">
     </form>
 
     <table id="productsTable">
-        <thead>
-            <tr>
-                <th>Название</th>
-                <th>Цена</th>
-                <th>Валюта</th>
-                <th>Количество</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
+
     </table>
 
     <script>
-         /*
+        /*
         Задание:
         Добавьте в форму поле ввода "количество на складе". Сделайте так, чтобы при нажатии на кнопку "Сохранить" значение из поля "количество на складе"
         добавлялось как четвертая колонка в таблице.
         */
         let productForm = document.forms.productForm;
-        let productsTable = document.querySelector("#productsTable tbody");
+        let productsTable = document.querySelector("#productsTable");
         let saveButton = document.querySelector("#saveButton");
 
         saveButton.addEventListener("click", function () {
-            addRow(
-                productForm.name.value,
+            addRow(productForm.name.value,
                 productForm.price.value,
                 productForm.currency.value,
-                productForm.stock.value
-            );
+                productForm.count.value);
 
-            for (let element of productForm.elements) {
-                if (element.type === "text") element.value = "";
+            for (let i = 0; i < productForm.elements.length; i++) {
+                const element = productForm.elements[i];
+                if (element.type == "text") element.value = "";
             }
         });
 
-        function addRow(name, price, currency, stock) {
+        function addRow(name, price, currency, count) {
             let tr = document.createElement("tr");
-            tr.insertAdjacentHTML("beforeend", <td>${name}</td>);
-            tr.insertAdjacentHTML("beforeend", <td>${price}</td>);
-            tr.insertAdjacentHTML("beforeend", <td>${currency}</td>);
-            tr.insertAdjacentHTML("beforeend", <td>${stock}</td>);
+            tr.insertAdjacentHTML("beforeend", `<td>${name}</td>`);
+            tr.insertAdjacentHTML("beforeend", `<td>${price}</td>`);
+            tr.insertAdjacentHTML("beforeend", `<td>${currency}</td>`);
+            tr.insertAdjacentHTML("beforeend", `<td>${count}</td>`);
             productsTable.append(tr);
         }
+
     </script>
 </body>
 
